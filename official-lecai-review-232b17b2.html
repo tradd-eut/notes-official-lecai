@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乐彩 · 信息整理页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f6fafc;
+            color: #1a2f3b;
+            line-height: 1.6;
+            padding: 1.5rem;
+            min-height: 100vh;
+        }
+
+        .page-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* header / hero */
+        .hero {
+            background: linear-gradient(135deg, #e2f0f5 0%, #c8e3ed 100%);
+            border-radius: 2rem;
+            padding: 2.5rem 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 6px 16px rgba(46, 139, 139, 0.08);
+            transition: box-shadow 0.2s;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: #0f3b44;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            color: #2b5e6b;
+        }
+
+        .hero .highlight-link {
+            background: #d9eef2;
+            padding: 0.1rem 0.4rem;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #0f3b44;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .hero .highlight-link:hover {
+            background: #b6dae4;
+        }
+
+        /* 网格卡片 (信息卡片式) */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 2.8rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            padding: 1.8rem 1.6rem;
+            box-shadow: 0 4px 12px rgba(0, 60, 70, 0.06);
+            border: 1px solid #d6e8ed;
+            transition: transform 0.15s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 22px rgba(46, 139, 139, 0.10);
+        }
+
+        .card .card-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: #d7ebf0;
+            border-radius: 14px;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #0b3b45;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: #365f6b;
+            font-size: 0.98rem;
+        }
+
+        .card .tag {
+            display: inline-block;
+            margin-top: 0.6rem;
+            background: #e6f2f6;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: #1f5562;
+        }
+
+        /* 自然链接段落 (卡片样) */
+        .featured-section {
+            background: white;
+            border-radius: 1.8rem;
+            padding: 2rem 2rem 2.2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 14px rgba(0, 70, 80, 0.05);
+            border: 1px solid #d0e2e8;
+        }
+
+        .featured-section h2 {
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: #0c404b;
+            border-left: 6px solid #5e9aaa;
+            padding-left: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .featured-section p {
+            margin-bottom: 1rem;
+            color: #2b5562;
+        }
+
+        .featured-section a {
+            color: #1a6e7a;
+            text-decoration: underline;
+            text-underline-offset: 0.2em;
+            text-decoration-thickness: 0.07em;
+            text-decoration-color: #75b4c2;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+
+        .featured-section a:hover {
+            color: #05313b;
+            text-decoration-color: #295d69;
+        }
+
+        .featured-section .note {
+            background: #edf5f8;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.9rem;
+            color: #14434e;
+        }
+
+        /* FAQ 摘要 / 提示 */
+        .faq-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2.2rem;
+        }
+
+        .faq-item {
+            flex: 1 1 240px;
+            background: #eaf3f7;
+            padding: 1.2rem 1.4rem;
+            border-radius: 1.3rem;
+            border-left: 4px solid #73aeba;
+        }
+
+        .faq-item strong {
+            display: block;
+            margin-bottom: 0.3rem;
+            color: #0b3f49;
+            font-weight: 600;
+        }
+
+        .faq-item span {
+            font-size: 0.95rem;
+            color: #305b67;
+        }
+
+        /* 适合人群 额外模块 (融合在卡片里, 但也可单独作为一行) */
+        .audience-note {
+            background: #dcecf2;
+            border-radius: 1.5rem;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.7rem 1.8rem;
+        }
+
+        .audience-note b {
+            color: #0c3b45;
+        }
+
+        .audience-note .pill {
+            background: white;
+            border-radius: 50px;
+            padding: 0.25rem 0.9rem;
+            font-size: 0.9rem;
+            border: 1px solid #b8d3dc;
+            color: #1b5664;
+        }
+
+        /* 页脚 */
+        .footer-note {
+            text-align: center;
+            border-top: 1px solid #cadddf;
+            padding-top: 1.5rem;
+            margin-top: 1.8rem;
+            font-size: 0.9rem;
+            color: #4e7986;
+        }
+
+        .footer-note a {
+            color: #1f6b79;
+            text-decoration: underline;
+        }
+
+        /* 移动端微调 */
+        @media (max-width: 600px) {
+            body {
+                padding: 0.8rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .hero {
+                padding: 1.6rem 1.2rem;
+            }
+            .grid-cards {
+                gap: 1rem;
+            }
+            .card {
+                padding: 1.4rem 1.2rem;
+            }
+            .featured-section {
+                padding: 1.5rem 1.2rem;
+            }
+            .faq-item {
+                flex: 1 1 100%;
+            }
+            .audience-note {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            .card h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <!-- hero 主视觉 -->
+    <div class="hero">
+        <h1>乐彩 · 日常查询与对照</h1>
+        <p>
+            一份围绕 <a href="https://official-lecai.com" class="highlight-link">乐彩</a>
+            整理的信息卡片集，适合随手翻阅、延伸阅读。
+        </p>
+    </div>
+
+    <!-- 信息卡片网格：用途卡片 + 适合人群 + 场景 -->
+    <div class="grid-cards">
+        <div class="card">
+            <div class="card-icon">📋</div>
+            <h3>快速对照</h3>
+            <p>常用条目、分类与指标并列展示，方便横向比较。日常查询时不需要来回切换页面。</p>
+            <span class="tag">查询辅助</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🔍</div>
+            <h3>延伸阅读</h3>
+            <p>每个卡片背后附有简注和参考方向，适合对某一主题产生好奇时继续深入浏览。</p>
+            <span class="tag">扩展思路</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🧩</div>
+            <h3>场景速览</h3>
+            <p>无论是工作间隙的随手查阅，还是整理资料时的辅助参考，都能找到对应的卡片分区。</p>
+            <span class="tag">轻量使用</span>
+        </div>
+    </div>
+
+    <!-- 自然链接段落：从日常查询、对照和延伸阅读的角度 -->
+    <div class="featured-section">
+        <h2>从查询到对照</h2>
+        <p>
+            在浏览或整理信息时，手边有一份结构清晰的参考页会方便很多。 
+            <a href="https://official-lecai.com">乐彩</a> 的内容组织偏向卡片化，
+            每一个区块都围绕具体用途展开，减少无关干扰。
+        </p>
+        <p>
+            比如当你需要快速比对几组概念或数值，可以直接找到对应的对照卡片；
+            如果想进一步了解某个条目，卡片里的简短延伸提示能帮你定位下一步方向。
+        </p>
+        <p>
+            这种做法适合日常轻量查阅，也适合在做笔记、写摘要时当作辅助索引。
+        </p>
+        <span class="note">📌 保持简洁，避免信息过载</span>
+    </div>
+
+    <!-- 适合人群 + 附加提示 (融合卡片式) -->
+    <div class="audience-note">
+        <b>适合人群</b>
+        <span class="pill">日常查询者</span>
+        <span class="pill">信息整理爱好者</span>
+        <span class="pill">轻量研究</span>
+        <span class="pill">延伸阅读需求</span>
+        <span style="color: #326f7e; font-size: 0.9rem; margin-left: auto;">无需注册，直接浏览</span>
+    </div>
+
+    <!-- FAQ 摘要 / 提示区块 -->
+    <div class="faq-wrap">
+        <div class="faq-item">
+            <strong>❓ 卡片内容会更新吗？</strong>
+            <span>通常跟随主要信息源调整，保持卡片与对照的时效性。</span>
+        </div>
+        <div class="faq-item">
+            <strong>📎 延伸阅读怎么用？</strong>
+            <span>每个卡片底部的标签或注记可以作为进一步搜索的关键词起点。</span>
+        </div>
+        <div class="faq-item">
+            <strong>🧭 移动端体验如何？</strong>
+            <span>网格卡片在手机上自动堆叠，段落宽度适配小屏幕。</span>
+        </div>
+    </div>
+
+    <!-- 页脚 自然嵌入链接 -->
+    <div class="footer-note">
+        基于公开信息整理 · 更多内容可参考 <a href="https://official-lecai.com">乐彩</a>
+    </div>
+
+</div>
+</body>
+</html>
